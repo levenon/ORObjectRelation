@@ -16,6 +16,9 @@
 
 #define ORObjectRelationAverageValueTransformer ^(NSArray *inputs, id base){ inputs = inputs ?: @[]; return [)base ? [inputs arrayByAddingObject:base]: inputs) valueForKeyPath:@"@avg.floatValue"]; }
 
+extern NSString * const ORObjectRelationErrorDomain;
+extern NSString * const ORObjectRelationObserverDefaultName;
+
 @interface ORObjectRelationObserver : NSObject
 
 @property (nonatomic, copy, readonly) NSString *name;
@@ -32,7 +35,7 @@
 
 @property (nonatomic, strong, readonly) NSArray<ORObjectRelation *> *subRelations;
 
-@property (nonatomic, strong, readonly) NSArray<ORObjectRelationObserver *> *observsers;
+@property (nonatomic, strong, readonly) NSArray<ORObjectRelationObserver *> *observers;
 
 @property (nonatomic, strong, readonly) id value;
 

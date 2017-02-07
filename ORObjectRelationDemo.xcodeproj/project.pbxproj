@@ -24,22 +24,16 @@
 		083772471E2E2C580034056F /* ORBadgeValueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772461E2E2C580034056F /* ORBadgeValueManager.m */; };
 		0837724A1E2E2C970034056F /* NSObject+ObjectRelationObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 083772481E2E2C970034056F /* NSObject+ObjectRelationObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0837724B1E2E2C970034056F /* NSObject+ObjectRelationObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772491E2E2C970034056F /* NSObject+ObjectRelationObserver.m */; };
-		083C54801E2F6593004DD4A5 /* ORBooleanObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772361E2E2BAF0034056F /* ORBooleanObjectRelation.m */; };
-		083C54811E2F6593004DD4A5 /* ORCountObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772381E2E2BAF0034056F /* ORCountObjectRelation.m */; };
-		083C54821E2F6593004DD4A5 /* ORMajorKeyCountObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0837723A1E2E2BAF0034056F /* ORMajorKeyCountObjectRelation.m */; };
-		083C54831E2F6593004DD4A5 /* ORObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0837723C1E2E2BAF0034056F /* ORObjectRelation.m */; };
-		083C54841E2F6593004DD4A5 /* NSObject+ObjectRelationObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772491E2E2C970034056F /* NSObject+ObjectRelationObserver.m */; };
+		0840966F1E49B8F60050CCDC /* ORSubRelationsObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D91CE61E49B01100B538AB /* ORSubRelationsObjectRelation.m */; };
+		084096701E49B8F60050CCDC /* ORBooleanObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772361E2E2BAF0034056F /* ORBooleanObjectRelation.m */; };
+		084096711E49B8F60050CCDC /* ORCountObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772381E2E2BAF0034056F /* ORCountObjectRelation.m */; };
+		084096721E49B8F60050CCDC /* ORMajorKeyCountObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0837723A1E2E2BAF0034056F /* ORMajorKeyCountObjectRelation.m */; };
+		084096731E49B8F60050CCDC /* ORObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0837723C1E2E2BAF0034056F /* ORObjectRelation.m */; };
+		084096741E49B8F60050CCDC /* NSObject+ObjectRelationObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772491E2E2C970034056F /* NSObject+ObjectRelationObserver.m */; };
+		08D91CE71E49B01100B538AB /* ORSubRelationsObjectRelation.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D91CE51E49B01100B538AB /* ORSubRelationsObjectRelation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08D91CE81E49B01100B538AB /* ORSubRelationsObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D91CE61E49B01100B538AB /* ORSubRelationsObjectRelation.m */; };
+		08D91CEE1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D91CED1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		0837722C1E2E2B650034056F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 083772001E2E2B440034056F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 083772261E2E2B650034056F;
-			remoteInfo = ORObjectRelation;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		083772331E2E2B650034056F /* Embed Frameworks */ = {
@@ -78,6 +72,9 @@
 		083772461E2E2C580034056F /* ORBadgeValueManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORBadgeValueManager.m; sourceTree = SOURCE_ROOT; };
 		083772481E2E2C970034056F /* NSObject+ObjectRelationObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ObjectRelationObserver.h"; sourceTree = "<group>"; };
 		083772491E2E2C970034056F /* NSObject+ObjectRelationObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ObjectRelationObserver.m"; sourceTree = "<group>"; };
+		08D91CE51E49B01100B538AB /* ORSubRelationsObjectRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSubRelationsObjectRelation.h; sourceTree = "<group>"; };
+		08D91CE61E49B01100B538AB /* ORSubRelationsObjectRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSubRelationsObjectRelation.m; sourceTree = "<group>"; };
+		08D91CED1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORObjectRelatioknUmbrella.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +142,8 @@
 		083772341E2E2BAF0034056F /* ORObjectRelation */ = {
 			isa = PBXGroup;
 			children = (
+				08D91CE51E49B01100B538AB /* ORSubRelationsObjectRelation.h */,
+				08D91CE61E49B01100B538AB /* ORSubRelationsObjectRelation.m */,
 				083772351E2E2BAF0034056F /* ORBooleanObjectRelation.h */,
 				083772361E2E2BAF0034056F /* ORBooleanObjectRelation.m */,
 				083772371E2E2BAF0034056F /* ORCountObjectRelation.h */,
@@ -155,6 +154,7 @@
 				0837723C1E2E2BAF0034056F /* ORObjectRelation.m */,
 				083772481E2E2C970034056F /* NSObject+ObjectRelationObserver.h */,
 				083772491E2E2C970034056F /* NSObject+ObjectRelationObserver.m */,
+				08D91CED1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h */,
 			);
 			path = ORObjectRelation;
 			sourceTree = "<group>";
@@ -167,7 +167,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				083772431E2E2BAF0034056F /* ORObjectRelation.h in Headers */,
+				08D91CE71E49B01100B538AB /* ORSubRelationsObjectRelation.h in Headers */,
 				0837723F1E2E2BAF0034056F /* ORCountObjectRelation.h in Headers */,
+				08D91CEE1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h in Headers */,
 				0837724A1E2E2C970034056F /* NSObject+ObjectRelationObserver.h in Headers */,
 				0837723D1E2E2BAF0034056F /* ORBooleanObjectRelation.h in Headers */,
 				083772411E2E2BAF0034056F /* ORMajorKeyCountObjectRelation.h in Headers */,
@@ -189,7 +191,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				0837722D1E2E2B650034056F /* PBXTargetDependency */,
 			);
 			name = ORObjectRelationDemo;
 			productName = ORObjectRelationDemo;
@@ -279,14 +280,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				083772131E2E2B440034056F /* ViewController.m in Sources */,
-				083C54841E2F6593004DD4A5 /* NSObject+ObjectRelationObserver.m in Sources */,
+				0840966F1E49B8F60050CCDC /* ORSubRelationsObjectRelation.m in Sources */,
 				083772101E2E2B440034056F /* AppDelegate.m in Sources */,
+				084096721E49B8F60050CCDC /* ORMajorKeyCountObjectRelation.m in Sources */,
+				084096741E49B8F60050CCDC /* NSObject+ObjectRelationObserver.m in Sources */,
+				084096711E49B8F60050CCDC /* ORCountObjectRelation.m in Sources */,
 				083772471E2E2C580034056F /* ORBadgeValueManager.m in Sources */,
-				083C54831E2F6593004DD4A5 /* ORObjectRelation.m in Sources */,
-				083C54801E2F6593004DD4A5 /* ORBooleanObjectRelation.m in Sources */,
-				083C54821E2F6593004DD4A5 /* ORMajorKeyCountObjectRelation.m in Sources */,
+				084096701E49B8F60050CCDC /* ORBooleanObjectRelation.m in Sources */,
+				084096731E49B8F60050CCDC /* ORObjectRelation.m in Sources */,
 				0837720D1E2E2B440034056F /* main.m in Sources */,
-				083C54811E2F6593004DD4A5 /* ORCountObjectRelation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +298,7 @@
 			files = (
 				0837723E1E2E2BAF0034056F /* ORBooleanObjectRelation.m in Sources */,
 				083772441E2E2BAF0034056F /* ORObjectRelation.m in Sources */,
+				08D91CE81E49B01100B538AB /* ORSubRelationsObjectRelation.m in Sources */,
 				083772401E2E2BAF0034056F /* ORCountObjectRelation.m in Sources */,
 				083772421E2E2BAF0034056F /* ORMajorKeyCountObjectRelation.m in Sources */,
 				0837724B1E2E2C970034056F /* NSObject+ObjectRelationObserver.m in Sources */,
@@ -303,14 +306,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0837722D1E2E2B650034056F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 083772261E2E2B650034056F /* ORObjectRelation */;
-			targetProxy = 0837722C1E2E2B650034056F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		083772141E2E2B440034056F /* Main.storyboard */ = {

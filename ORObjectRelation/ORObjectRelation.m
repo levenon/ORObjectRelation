@@ -226,7 +226,7 @@ NSString * const ORObjectRelationObserverDefaultName = @"com.objectRelation.hand
     return [[self mutableSubRelations] copy];
 }
 
-- (NSArray<ORObjectRelationObserver *> *)observsers{
+- (NSArray<ORObjectRelationObserver *> *)observers{
     return [[self mutableObservers] copy];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ORObjectRelation/NSObject+ObjectRelationObserver.h>
+#import <ORObjectRelation/ORObjectRelatioknUmbrella.h>
 
 extern NSString * const ORObjectRelationRootName;
 extern NSString * const ORObjectRelationNormalMessageDomainName;

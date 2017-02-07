@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "ORBadgeValueManager.h"
-#import "NSObject+ObjectRelationObserver.h"
 
 @interface ViewController ()
 

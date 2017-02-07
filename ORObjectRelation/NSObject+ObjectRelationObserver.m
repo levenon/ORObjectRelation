@@ -73,11 +73,23 @@ NSString * ORObjectRelationObserverName(id observer){
     return success;
 }
 
+- (void)clearAllRegisteredRelations;{
+    [[self objectRelationObserverSetter] clear];
+}
+
+@end
+
+@implementation NSObject (ORCountObjectRelation)
+
 - (BOOL)registerObserveRelation:(ORCountObjectRelation *)relation countPicker:(void (^)(NSUInteger count))countPicker error:(NSError **)error; {
     return [self registerObserveRelation:relation picker:^(id value) {
         countPicker([value integerValue]);
     } error:error];
 }
+
+@end
+
+@implementation NSObject (ORBooleanObjectRelation)
 
 - (BOOL)registerObserveRelation:(ORBooleanObjectRelation *)relation booleanPicker:(void (^)(BOOL boolean))booleanPicker error:(NSError **)error;{
     return [self registerObserveRelation:relation picker:^(id value) {
@@ -85,8 +97,14 @@ NSString * ORObjectRelationObserverName(id observer){
     } error:error];
 }
 
-- (void)clearAllRegisteredRelations;{
-    [[self objectRelationObserverSetter] clear];
+@end
+
+@implementation NSObject (ORSubRelationsObjectRelation)
+
+- (BOOL)registerObserveRelation:(ORSubRelationsObjectRelation *)relation subRelationsPicker:(void (^)(NSArray *subRelations))subRelationsPicker error:(NSError **)error;{
+    return [self registerObserveRelation:relation picker:^(NSArray *subRelations) {
+        subRelationsPicker(subRelations);
+    } error:error];
 }
 
 @end

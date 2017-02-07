@@ -7,7 +7,6 @@
 //
 
 #import "ORBadgeValueManager.h"
-#import "NSObject+ObjectRelationObserver.h"
 
 NSString * const ORObjectRelationRootName = @"com.pyyx.object.relation.root";
 NSString * const ORObjectRelationNormalMessageDomainName = @"root.message.normal.messages";
