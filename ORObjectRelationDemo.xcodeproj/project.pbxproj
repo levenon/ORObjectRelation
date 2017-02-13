@@ -32,7 +32,7 @@
 		084096741E49B8F60050CCDC /* NSObject+ObjectRelationObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 083772491E2E2C970034056F /* NSObject+ObjectRelationObserver.m */; };
 		08D91CE71E49B01100B538AB /* ORSubRelationsObjectRelation.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D91CE51E49B01100B538AB /* ORSubRelationsObjectRelation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08D91CE81E49B01100B538AB /* ORSubRelationsObjectRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D91CE61E49B01100B538AB /* ORSubRelationsObjectRelation.m */; };
-		08D91CEE1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D91CED1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08D91CEE1E49B80B00B538AB /* ORObjectRelationUmbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D91CED1E49B80B00B538AB /* ORObjectRelationUmbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,7 +74,7 @@
 		083772491E2E2C970034056F /* NSObject+ObjectRelationObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ObjectRelationObserver.m"; sourceTree = "<group>"; };
 		08D91CE51E49B01100B538AB /* ORSubRelationsObjectRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSubRelationsObjectRelation.h; sourceTree = "<group>"; };
 		08D91CE61E49B01100B538AB /* ORSubRelationsObjectRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSubRelationsObjectRelation.m; sourceTree = "<group>"; };
-		08D91CED1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORObjectRelatioknUmbrella.h; sourceTree = "<group>"; };
+		08D91CED1E49B80B00B538AB /* ORObjectRelationUmbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORObjectRelationUmbrella.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +154,7 @@
 				0837723C1E2E2BAF0034056F /* ORObjectRelation.m */,
 				083772481E2E2C970034056F /* NSObject+ObjectRelationObserver.h */,
 				083772491E2E2C970034056F /* NSObject+ObjectRelationObserver.m */,
-				08D91CED1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h */,
+				08D91CED1E49B80B00B538AB /* ORObjectRelationUmbrella.h */,
 			);
 			path = ORObjectRelation;
 			sourceTree = "<group>";
@@ -169,7 +169,7 @@
 				083772431E2E2BAF0034056F /* ORObjectRelation.h in Headers */,
 				08D91CE71E49B01100B538AB /* ORSubRelationsObjectRelation.h in Headers */,
 				0837723F1E2E2BAF0034056F /* ORCountObjectRelation.h in Headers */,
-				08D91CEE1E49B80B00B538AB /* ORObjectRelatioknUmbrella.h in Headers */,
+				08D91CEE1E49B80B00B538AB /* ORObjectRelationUmbrella.h in Headers */,
 				0837724A1E2E2C970034056F /* NSObject+ObjectRelationObserver.h in Headers */,
 				0837723D1E2E2BAF0034056F /* ORBooleanObjectRelation.h in Headers */,
 				083772411E2E2BAF0034056F /* ORMajorKeyCountObjectRelation.h in Headers */,
