@@ -22,7 +22,7 @@
 
 @end
 
-@interface ORObjectRelation (ChatMessage)
+@interface ORMajorKeyCountObjectRelation (Remove)
 
 - (void)removeSubRelationWithObjectID:(NSString *)objectID;
 

@@ -41,7 +41,7 @@
 
 @end
 
-@implementation ORObjectRelation (ChatMessage)
+@implementation ORMajorKeyCountObjectRelation (Remove)
 
 - (void)removeSubRelationWithObjectID:(NSString *)objectID{
     ORObjectRelation *relation = [[[self subRelations] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"objectID == %@", objectID]] firstObject];
