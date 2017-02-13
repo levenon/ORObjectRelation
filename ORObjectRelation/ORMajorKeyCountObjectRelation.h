@@ -24,8 +24,8 @@
 
 @interface ORObjectRelation (ChatMessage)
 
-- (void)removeSubRelationWithChatID:(NSString *)chatID;
+- (void)removeSubRelationWithObjectID:(NSString *)objectID;
 
-- (void)removeSubRelationWithChatID:(NSString *)chatID domain:(NSString *)domain;
+- (void)removeSubRelationWithObjectID:(NSString *)objectID domain:(NSString *)domain;
 
 @end

@@ -43,14 +43,14 @@
 
 @implementation ORObjectRelation (ChatMessage)
 
-- (void)removeSubRelationWithChatID:(NSString *)chatID{
-    ORObjectRelation *relation = [[[self subRelations] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"objectID == %@", chatID]] firstObject];
+- (void)removeSubRelationWithObjectID:(NSString *)objectID{
+    ORObjectRelation *relation = [[[self subRelations] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"objectID == %@", objectID]] firstObject];
     
     [self removeSubRelation:relation];
 }
 
-- (void)removeSubRelationWithChatID:(NSString *)chatID domain:(NSString *)domain;{
-    [self removeSubRelationNamed:[ORMajorKeyCountObjectRelation nameWithObjectID:chatID domain:domain]];
+- (void)removeSubRelationWithObjectID:(NSString *)objectID domain:(NSString *)domain;{
+    [self removeSubRelationNamed:[ORMajorKeyCountObjectRelation nameWithObjectID:objectID domain:domain]];
 }
 
 @end
