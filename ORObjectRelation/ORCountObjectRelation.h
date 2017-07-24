@@ -12,9 +12,9 @@
 
 @property (nonatomic, assign) NSUInteger count;
 
-+ (instancetype)relationWithName:(NSString *)name defaultValue:(id)defaultValue valueTransformer:(id (^)(NSArray *inputs, id base))valueTransformer __deprecated;
-- (instancetype)initWithName:(NSString *)name defaultValue:(id)defaultValue valueTransformer:(id (^)(NSArray *inputs, id base))valueTransformer __deprecated;
-- (BOOL)registerObserverNamed:(NSString *)name picker:(void (^)(id value))picker error:(NSError **)error __deprecated;
++ (instancetype)relationWithName:(NSString *)name defaultValue:(id)defaultValue valueTransformer:(id (^)(NSArray *inputs, id base))valueTransformer ORObjectRelationDeprecated(relationWithName:defaultCount:);
+- (instancetype)initWithName:(NSString *)name defaultValue:(id)defaultValue valueTransformer:(id (^)(NSArray *inputs, id base))valueTransformer ORObjectRelationDeprecated(initWithName:defaultCount);
+- (BOOL)registerObserverNamed:(NSString *)name picker:(void (^)(id value))picker error:(NSError **)error ORObjectRelationDeprecated(registerObserverNamed:countPicker:error);
 
 + (instancetype)relationWithName:(NSString *)name defaultCount:(NSInteger)defaultCount;
 - (instancetype)initWithName:(NSString *)name defaultCount:(NSInteger)defaultCount;

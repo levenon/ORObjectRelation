@@ -16,7 +16,6 @@
 @interface NSObject (ObjectRelationObserver)
 
 - (BOOL)registerObserveRelation:(ORObjectRelation *)relation picker:(void (^)(id value))picker error:(NSError **)error;
-
 - (void)clearAllRegisteredRelations;
 
 @end

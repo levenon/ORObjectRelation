@@ -12,8 +12,8 @@
 
 @property (nonatomic, copy, readonly) NSString *objectID;
 
-+ (instancetype)relationWithName:(NSString *)name defaultCount:(NSInteger)defaultCount __deprecated;
-- (instancetype)initWithName:(NSString *)name defaultCount:(NSInteger)defaultCount __deprecated;
++ (instancetype)relationWithName:(NSString *)name defaultCount:(NSInteger)defaultCount ORObjectRelationDeprecated(relationWithObjectID:domain:defaultCount);
+- (instancetype)initWithName:(NSString *)name defaultCount:(NSInteger)defaultCount ORObjectRelationDeprecated(initWithObjectID:domain:defaultCount:);
 
 + (instancetype)relationWithObjectID:(NSString *)objectID domain:(NSString *)domain defaultCount:(NSInteger)defaultCount;
 - (instancetype)initWithObjectID:(NSString *)objectID domain:(NSString *)domain defaultCount:(NSInteger)defaultCount;
@@ -25,7 +25,6 @@
 @interface ORMajorKeyCountObjectRelation (Remove)
 
 - (void)removeSubRelationWithObjectID:(NSString *)objectID;
-
 - (void)removeSubRelationWithObjectID:(NSString *)objectID domain:(NSString *)domain;
 
 @end

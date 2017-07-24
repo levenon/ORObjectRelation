@@ -16,6 +16,9 @@
 
 #define ORObjectRelationAverageValueTransformer ^(NSArray *inputs, id base){ inputs = inputs ?: @[]; return [)base ? [inputs arrayByAddingObject:base]: inputs) valueForKeyPath:@"@avg.floatValue"]; }
 
+
+#define ORObjectRelationDeprecated(instead) DEPRECATED_MSG_ATTRIBUTE(" Use " # instead " instead")
+
 extern NSString * const ORObjectRelationErrorDomain;
 extern NSString * const ORObjectRelationObserverDefaultName;
 
