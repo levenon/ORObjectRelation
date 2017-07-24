@@ -35,15 +35,15 @@
     
     ORBadgeValueManager *manager = [ORBadgeValueManager sharedManager];
     NSError *error = nil;
-    [self registerObserveRelation:[manager rootObjectRelation] countPicker:^(NSUInteger count) {
+    [self registerObserveRelation:[manager rootObjectRelation] countPicker:^(id relation, NSUInteger count) {
         self.rootBarButtonItem.title = @(count).stringValue;
     } error:&error];
     
-    [self registerObserveRelation:[manager messageObjectRelation] countPicker:^(NSUInteger count) {
+    [self registerObserveRelation:[manager messageObjectRelation] countPicker:^(id relation, NSUInteger count) {
         self.messagesBarButtonItem.title = @(count).stringValue;
     } error:&error];
     
-    [self registerObserveRelation:[manager homeObjectRelation] countPicker:^(NSUInteger count) {
+    [self registerObserveRelation:[manager homeObjectRelation] countPicker:^(id relation, NSUInteger count) {
         self.homeBarButtonItem.title = @(count).stringValue;
     } error:&error];
 }
@@ -93,7 +93,7 @@
     
     ORCountObjectRelation *relation = [[ORBadgeValueManager sharedManager] normalMessageObjectRelationWithChatID:key];
     NSError *error = nil;
-    [cell registerObserveRelation:relation countPicker:^(NSUInteger count) {
+    [cell registerObserveRelation:relation countPicker:^(id relation, NSUInteger count) {
         cell.detailTextLabel.text = @(count).stringValue;
     } error:&error];
     

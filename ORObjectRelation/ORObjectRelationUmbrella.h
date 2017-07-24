@@ -8,11 +8,11 @@
 
 #ifdef __OBJC__
 
+#import "ORObjectRelationObserver.h"
 #import "ORObjectRelation.h"
 #import "ORCountObjectRelation.h"
 #import "ORBooleanObjectRelation.h"
 #import "ORMajorKeyCountObjectRelation.h"
-#import "ORSubRelationsObjectRelation.h"
 #import "NSObject+ObjectRelationObserver.h"
 
 #endif

@@ -13,21 +13,42 @@ NSString * ORObjectRelationObserverName(id observer){
     return [NSString stringWithFormat:@"%@%d", NSStringFromClass([observer class]), (int)observer];
 }
 
+@interface ORObjectRelationProxy : NSObject
+
+@property (nonatomic, assign) ORObjectRelation *relation;
+
+@end
+
+@implementation ORObjectRelationProxy
+
++ (instancetype)proxyWithRelation:(ORObjectRelation *)relation{
+    return [[self alloc] initWithRelation:relation];
+}
+
+- (instancetype)initWithRelation:(ORObjectRelation *)relation{
+    if (self = [super init]) {
+        self.relation = relation;
+    }
+    return self;
+}
+
+@end
+
 @interface ORObjectRelationObserverSetter : NSObject
 
-@property (nonatomic, assign) id observer;
+@property (nonatomic, copy) NSString *observerName;
 
-@property (nonatomic, strong) NSMutableArray<ORObjectRelation *> *observedObjectRelations;
+@property (nonatomic, strong) NSMutableArray<ORObjectRelationProxy *> *observedObjectRelationProxys;
 
 @end
 
 @implementation ORObjectRelationObserverSetter
 
-- (NSMutableArray<ORObjectRelation *> *)observedObjectRelations{
-    if (!_observedObjectRelations) {
-        _observedObjectRelations = [NSMutableArray array];
+- (NSMutableArray<ORObjectRelationProxy *> *)observedObjectRelationProxys{
+    if (!_observedObjectRelationProxys) {
+        _observedObjectRelationProxys = [NSMutableArray new];
     }
-    return _observedObjectRelations;
+    return _observedObjectRelationProxys;
 }
 
 - (void)dealloc{
@@ -35,8 +56,8 @@ NSString * ORObjectRelationObserverName(id observer){
 }
 
 - (void)clear{
-    for (ORObjectRelation *relation in [self observedObjectRelations]) {
-        [relation removeObserverNamed:ORObjectRelationObserverName([self observer])];
+    for (ORObjectRelationProxy *proxy in [self observedObjectRelationProxys]) {
+        [[proxy relation] removeObserverNamed:[self observerName]];
     }
 }
 
@@ -44,46 +65,46 @@ NSString * ORObjectRelationObserverName(id observer){
 
 @interface NSObject (ORObjectRelationObserverSetter)
 
-@property (nonatomic, strong, readonly) ORObjectRelationObserverSetter *objectRelationObserverSetter;
+@property (nonatomic, strong, readonly) ORObjectRelationObserverSetter *objectRelationSetter;
 
 @end
 
 @implementation NSObject (ORObjectRelationObserverSetter)
 
-- (ORObjectRelationObserverSetter *)objectRelationObserverSetter{
-    ORObjectRelationObserverSetter *setter = objc_getAssociatedObject(self, @selector(objectRelationObserverSetter));
+- (ORObjectRelationObserverSetter *)objectRelationSetter{
+    ORObjectRelationObserverSetter *setter = objc_getAssociatedObject(self, @selector(objectRelationSetter));
     if (!setter) {
         setter = [ORObjectRelationObserverSetter new];
-        objc_setAssociatedObject(self, @selector(objectRelationObserverSetter), setter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, @selector(objectRelationSetter), setter, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return setter;
 }
 
 @end
 
-@implementation NSObject (ObjectRelationObserver)
+@implementation NSObject (ORObjectRelationObserver)
 
-- (BOOL)registerObserveRelation:(ORObjectRelation *)relation picker:(void (^)(id value))picker error:(NSError **)error;{
+- (BOOL)observeRelation:(ORObjectRelation *)relation queue:(dispatch_queue_t)queue picker:(void (^)(id relation, id value))picker error:(NSError **)error;{
     NSString *observerName = ORObjectRelationObserverName(self);
-    BOOL success = [relation registerObserverNamed:observerName picker:picker error:error];
+    BOOL success = [relation registerObserverNamed:observerName queue:queue picker:picker error:error];
     if (success) {
-        self.objectRelationObserverSetter.observer = self;
-        [[[self objectRelationObserverSetter] observedObjectRelations] addObject:relation];
+        self.objectRelationSetter.observerName = ORObjectRelationObserverName(self);
+        [[[self objectRelationSetter] observedObjectRelationProxys] addObject:[ORObjectRelationProxy proxyWithRelation:relation]];
     }
     return success;
 }
 
-- (void)clearAllRegisteredRelations;{
-    [[self objectRelationObserverSetter] clear];
+- (void)clearObservedRelations;{
+    [[self objectRelationSetter] clear];
 }
 
 @end
 
 @implementation NSObject (ORCountObjectRelation)
 
-- (BOOL)registerObserveRelation:(ORCountObjectRelation *)relation countPicker:(void (^)(NSUInteger count))countPicker error:(NSError **)error; {
-    return [self registerObserveRelation:relation picker:^(id value) {
-        countPicker([value integerValue]);
+- (BOOL)observeRelation:(ORCountObjectRelation *)relation queue:(dispatch_queue_t)queue countPicker:(void (^)(id relation, NSUInteger count))countPicker error:(NSError **)error; {
+    return [self observeRelation:relation queue:queue picker:^(id relation, id value) {
+        countPicker(relation, [value integerValue]);
     } error:error];
 }
 
@@ -91,20 +112,30 @@ NSString * ORObjectRelationObserverName(id observer){
 
 @implementation NSObject (ORBooleanObjectRelation)
 
-- (BOOL)registerObserveRelation:(ORBooleanObjectRelation *)relation booleanPicker:(void (^)(BOOL boolean))booleanPicker error:(NSError **)error;{
-    return [self registerObserveRelation:relation picker:^(id value) {
-        booleanPicker([value boolValue]);
+- (BOOL)observeRelation:(ORBooleanObjectRelation *)relation queue:(dispatch_queue_t)queue booleanPicker:(void (^)(id relation, BOOL boolean))booleanPicker error:(NSError **)error;{
+    return [self observeRelation:relation queue:queue picker:^(id relation, id value) {
+        booleanPicker(relation, [value boolValue]);
     } error:error];
 }
 
 @end
 
-@implementation NSObject (ORSubRelationsObjectRelation)
+@implementation NSObject (ORObjectRelationObserver_NSDeprecated)
 
-- (BOOL)registerObserveRelation:(ORSubRelationsObjectRelation *)relation subRelationsPicker:(void (^)(NSArray *subRelations))subRelationsPicker error:(NSError **)error;{
-    return [self registerObserveRelation:relation picker:^(NSArray *subRelations) {
-        subRelationsPicker(subRelations);
-    } error:error];
+- (BOOL)registerObserveRelation:(ORObjectRelation *)relation picker:(void (^)(id relation, id value))picker error:(NSError **)error;{
+    return [self observeRelation:relation queue:nil picker:picker error:error];
+}
+
+- (BOOL)registerObserveRelation:(ORCountObjectRelation *)relation countPicker:(void (^)(id relation, NSUInteger count))countPicker error:(NSError **)error;{
+    return [self observeRelation:relation queue:nil countPicker:countPicker error:error];
+}
+
+- (BOOL)registerObserveRelation:(ORBooleanObjectRelation *)relation booleanPicker:(void (^)(id relation, BOOL boolean))booleanPicker error:(NSError **)error;{
+    return [self observeRelation:relation queue:nil booleanPicker:booleanPicker error:error];
+}
+
+- (void)clearAllRegisteredRelations;{
+    return [self clearObservedRelations];
 }
 
 @end
