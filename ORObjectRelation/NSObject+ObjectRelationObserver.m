@@ -13,42 +13,21 @@ NSString * ORObjectRelationObserverName(id observer){
     return [NSString stringWithFormat:@"%@%d", NSStringFromClass([observer class]), (int)observer];
 }
 
-@interface ORObjectRelationProxy : NSObject
-
-@property (nonatomic, assign) ORObjectRelation *relation;
-
-@end
-
-@implementation ORObjectRelationProxy
-
-+ (instancetype)proxyWithRelation:(ORObjectRelation *)relation{
-    return [[self alloc] initWithRelation:relation];
-}
-
-- (instancetype)initWithRelation:(ORObjectRelation *)relation{
-    if (self = [super init]) {
-        self.relation = relation;
-    }
-    return self;
-}
-
-@end
-
 @interface ORObjectRelationObserverSetter : NSObject
 
 @property (nonatomic, copy) NSString *observerName;
 
-@property (nonatomic, strong) NSMutableArray<ORObjectRelationProxy *> *observedObjectRelationProxys;
+@property (nonatomic, strong) NSHashTable<ORObjectRelation *> *observedObjectRelations;
 
 @end
 
 @implementation ORObjectRelationObserverSetter
 
-- (NSMutableArray<ORObjectRelationProxy *> *)observedObjectRelationProxys{
-    if (!_observedObjectRelationProxys) {
-        _observedObjectRelationProxys = [NSMutableArray new];
+- (NSHashTable<ORObjectRelation *> *)observedObjectRelations{
+    if (!_observedObjectRelations) {
+        _observedObjectRelations = [NSHashTable hashTableWithOptions:NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPersonality];
     }
-    return _observedObjectRelationProxys;
+    return _observedObjectRelations;
 }
 
 - (void)dealloc{
@@ -56,8 +35,8 @@ NSString * ORObjectRelationObserverName(id observer){
 }
 
 - (void)clear{
-    for (ORObjectRelationProxy *proxy in [self observedObjectRelationProxys]) {
-        [[proxy relation] removeObserverNamed:[self observerName]];
+    for (ORObjectRelation *relation in [self observedObjectRelations]) {
+        [relation removeObserverNamed:[self observerName]];
     }
 }
 
@@ -89,12 +68,12 @@ NSString * ORObjectRelationObserverName(id observer){
     BOOL success = [relation registerObserverNamed:observerName queue:queue picker:picker error:error];
     if (success) {
         self.objectRelationSetter.observerName = ORObjectRelationObserverName(self);
-        [[[self objectRelationSetter] observedObjectRelationProxys] addObject:[ORObjectRelationProxy proxyWithRelation:relation]];
+        [[[self objectRelationSetter] observedObjectRelations] addObject:relation];
     }
     return success;
 }
 
-- (void)clearObservedRelations;{
+- (void)removeObservedRelations;{
     [[self objectRelationSetter] clear];
 }
 
@@ -120,22 +99,26 @@ NSString * ORObjectRelationObserverName(id observer){
 
 @end
 
-@implementation NSObject (ORObjectRelationObserver_NSDeprecated)
+@implementation NSObject (ORObjectRelationObserverMainQueue)
 
 - (BOOL)registerObserveRelation:(ORObjectRelation *)relation picker:(void (^)(id relation, id value))picker error:(NSError **)error;{
-    return [self observeRelation:relation queue:nil picker:picker error:error];
+    return [self observeRelation:relation queue:dispatch_get_main_queue() picker:picker error:error];
 }
 
 - (BOOL)registerObserveRelation:(ORCountObjectRelation *)relation countPicker:(void (^)(id relation, NSUInteger count))countPicker error:(NSError **)error;{
-    return [self observeRelation:relation queue:nil countPicker:countPicker error:error];
+    return [self observeRelation:relation queue:dispatch_get_main_queue()  countPicker:countPicker error:error];
 }
 
 - (BOOL)registerObserveRelation:(ORBooleanObjectRelation *)relation booleanPicker:(void (^)(id relation, BOOL boolean))booleanPicker error:(NSError **)error;{
-    return [self observeRelation:relation queue:nil booleanPicker:booleanPicker error:error];
+    return [self observeRelation:relation queue:dispatch_get_main_queue()  booleanPicker:booleanPicker error:error];
 }
 
+@end
+
+@implementation NSObject (ORObjectRelationObserverDeprecated)
+
 - (void)clearAllRegisteredRelations;{
-    return [self clearObservedRelations];
+    return [self removeObservedRelations];
 }
 
 @end

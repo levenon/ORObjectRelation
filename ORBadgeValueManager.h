@@ -25,6 +25,11 @@ extern NSString * const ORObjectRelationNormalMessageDomainName;
 @property (nonatomic, strong, readonly) ORCountObjectRelation *homeObjectRelation;
 
 /**
+ *  root.other
+ */
+@property (nonatomic, strong, readonly) ORCountObjectRelation *otherObjectRelation;
+
+/**
  *  root.message
  *  
  *  普通聊天消息 归属于 root.message

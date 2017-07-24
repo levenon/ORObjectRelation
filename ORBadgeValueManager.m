@@ -25,6 +25,11 @@ NSString * const ORObjectRelationNormalMessageDomainName = @"root.message.normal
  */
 @property (nonatomic, strong) ORCountObjectRelation *messageObjectRelation;
 
+/**
+ *  root.other
+ */
+@property (nonatomic, strong) ORCountObjectRelation *otherObjectRelation;
+
 @end
 
 @implementation ORBadgeValueManager
@@ -71,6 +76,14 @@ NSString * const ORObjectRelationNormalMessageDomainName = @"root.message.normal
         [[self rootObjectRelation] addSubRelation:_messageObjectRelation error:nil];
     }
     return _messageObjectRelation;
+}
+
+- (ORCountObjectRelation *)otherObjectRelation{
+    if (!_otherObjectRelation) {
+        _otherObjectRelation = [ORCountObjectRelation relationWithName:@"root.other" defaultCount:0];
+        [[self rootObjectRelation] addSubRelation:_otherObjectRelation error:nil];
+    }
+    return _otherObjectRelation;
 }
 
 - (ORMajorKeyCountObjectRelation *)normalMessageObjectRelationWithChatID:(NSString *)chatID;{

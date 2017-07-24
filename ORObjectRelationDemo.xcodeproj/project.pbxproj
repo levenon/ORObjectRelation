@@ -33,6 +33,7 @@
 		08AABD611F25C2F000DBD837 /* ORObjectRelationObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AABD5F1F25C2F000DBD837 /* ORObjectRelationObserver.m */; };
 		08AABD621F25C3D700DBD837 /* ORObjectRelationObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AABD5F1F25C2F000DBD837 /* ORObjectRelationObserver.m */; };
 		08D91CEE1E49B80B00B538AB /* ORObjectRelationUmbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D91CED1E49B80B00B538AB /* ORObjectRelationUmbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08F4CE951F26069800CC0E14 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F4CE941F26069800CC0E14 /* RootViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +76,8 @@
 		08AABD5E1F25C2F000DBD837 /* ORObjectRelationObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORObjectRelationObserver.h; sourceTree = "<group>"; };
 		08AABD5F1F25C2F000DBD837 /* ORObjectRelationObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORObjectRelationObserver.m; sourceTree = "<group>"; };
 		08D91CED1E49B80B00B538AB /* ORObjectRelationUmbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORObjectRelationUmbrella.h; sourceTree = "<group>"; };
+		08F4CE931F26069800CC0E14 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		08F4CE941F26069800CC0E14 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				0837720F1E2E2B440034056F /* AppDelegate.m */,
 				083772111E2E2B440034056F /* ViewController.h */,
 				083772121E2E2B440034056F /* ViewController.m */,
+				08F4CE931F26069800CC0E14 /* RootViewController.h */,
+				08F4CE941F26069800CC0E14 /* RootViewController.m */,
 				083772141E2E2B440034056F /* Main.storyboard */,
 				083772171E2E2B440034056F /* Assets.xcassets */,
 				083772191E2E2B440034056F /* LaunchScreen.storyboard */,
@@ -286,6 +291,7 @@
 				084096741E49B8F60050CCDC /* NSObject+ObjectRelationObserver.m in Sources */,
 				084096711E49B8F60050CCDC /* ORCountObjectRelation.m in Sources */,
 				083772471E2E2C580034056F /* ORBadgeValueManager.m in Sources */,
+				08F4CE951F26069800CC0E14 /* RootViewController.m in Sources */,
 				084096701E49B8F60050CCDC /* ORBooleanObjectRelation.m in Sources */,
 				084096731E49B8F60050CCDC /* ORObjectRelation.m in Sources */,
 				0837720D1E2E2B440034056F /* main.m in Sources */,

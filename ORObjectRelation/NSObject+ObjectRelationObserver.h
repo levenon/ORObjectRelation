@@ -15,7 +15,7 @@
 @interface NSObject (ORObjectRelationObserver)
 
 - (BOOL)observeRelation:(ORObjectRelation *)relation queue:(dispatch_queue_t)queue picker:(void (^)(id relation, id value))picker error:(NSError **)error;
-- (void)clearObservedRelations;
+- (void)removeObservedRelations;
 
 @end
 
@@ -31,11 +31,16 @@
 
 @end
 
+@interface NSObject (ORObjectRelationObserverMainQueue)
+
+- (BOOL)registerObserveRelation:(ORObjectRelation *)relation picker:(void (^)(id relation, id value))picker error:(NSError **)error;
+- (BOOL)registerObserveRelation:(ORCountObjectRelation *)relation countPicker:(void (^)(id relation, NSUInteger count))countPicker error:(NSError **)error;
+- (BOOL)registerObserveRelation:(ORBooleanObjectRelation *)relation booleanPicker:(void (^)(id relation, BOOL boolean))booleanPicker error:(NSError **)error;
+
+@end
+
 @interface NSObject (ORObjectRelationObserverDeprecated)
 
-- (BOOL)registerObserveRelation:(ORObjectRelation *)relation picker:(void (^)(id relation, id value))picker error:(NSError **)error ORObjectRelationDeprecated(observeRelation:queue:picker:error:);
-- (BOOL)registerObserveRelation:(ORCountObjectRelation *)relation countPicker:(void (^)(id relation, NSUInteger count))countPicker error:(NSError **)error ORObjectRelationDeprecated(observeRelation:queue:queue countPicker:error:);
-- (BOOL)registerObserveRelation:(ORBooleanObjectRelation *)relation booleanPicker:(void (^)(id relation, BOOL boolean))booleanPicker error:(NSError **)error ORObjectRelationDeprecated(observeRelation:queue:queue booleanPicker:error:);
 - (void)clearAllRegisteredRelations ORObjectRelationDeprecated(clearAllObservedRelations);
 
 @end
