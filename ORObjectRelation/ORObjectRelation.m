@@ -24,6 +24,8 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
 
 @property (nonatomic, strong) dispatch_queue_t queue;
 
+@property (nonatomic, assign) void *queueTag;
+
 @property (nonatomic, strong) NSMutableArray<ORObjectRelation *> *mutableSubRelations;
 
 @property (nonatomic, strong) NSMutableArray<ORObjectRelationObserver *> *mutableObservers;
@@ -54,10 +56,13 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
 
 - (instancetype)initWithName:(NSString *)name queue:(dispatch_queue_t)queue{
     if (self = [self init]) {
+        _queueTag = &_queueTag;
         _name = [name copy];
         _queue = queue ?: [[self class] sharedQueue];
         _enable = YES;
         _allow = YES;
+        
+        dispatch_queue_set_specific(queue, _queueTag, _queueTag, NULL);
     }
     return self;
 }
@@ -111,40 +116,40 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
 
 - (NSArray<ORObjectRelation *> *)subRelations{
     __block NSArray<ORObjectRelation *> *subRelations = nil;
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         subRelations = [[self mutableSubRelations] copy];
-    });
+    }];
     return subRelations;
 }
 
 - (NSArray<ORObjectRelationObserver *> *)observers{
     __block NSArray<ORObjectRelationObserver *> *observers = nil;
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         observers = [[self mutableObservers] copy];
-    });
+    }];
     return observers;
 }
 
 - (NSString *)name{
     __block id name = nil;
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         name = _name;
-    });
+    }];
     return name;
 }
 
 - (id)value{
     __block id value = nil;
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         value = _value;
-    });
+    }];
     return value;
 }
 
 - (void)setValue:(id)value{
-    dispatch_async([self queue], ^{
+    [self _async:^{
         self.innerValue = value;
-    });
+    }];
 }
 
 - (id)innerValue {
@@ -161,46 +166,46 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
 
 - (id)object{
     __block id object = nil;
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         object = _object;
-    });
+    }];
     return object;
 }
 
 - (void)setObject:(id)object{
-    dispatch_async([self queue], ^{
+    [self _async:^{
         _object = object;
-    });
+    }];
 }
 
 - (BOOL)isEnable{
     __block BOOL isEnable = NO;
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         isEnable = _enable;
-    });
+    }];
     return isEnable;
 }
 
 - (void)setEnable:(BOOL)enable{
-    dispatch_async([self queue], ^{
+    [self _async:^{
         _enable = enable;
-    });
+    }];
 }
 
 - (BOOL)isAllow{
     __block BOOL isAllow = NO;
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         isAllow = _allow;
-    });
+    }];
     return isAllow;
 }
 
 - (void)setAllow:(BOOL)allow{
-    dispatch_async([self queue], ^{
+    [self _async:^{
         _allow = allow;
         
         [self _performObserver];
-    });
+    }];
 }
 
 - (BOOL)innerAllow{
@@ -209,6 +214,22 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
 
 #pragma mark - private
 
+- (void)_async:(dispatch_block_t)block;{
+    if (dispatch_get_specific(_queueTag)) {
+        block();
+    } else {
+        dispatch_async([self queue],block);
+    }
+}
+
+- (void)_sync:(dispatch_block_t)block;{
+    if (dispatch_get_specific(_queueTag)) {
+        block();
+    } else {
+        dispatch_sync([self queue], block);
+    }
+}
+
 - (void)_appendObserverNamed:(NSString *)name queue:(dispatch_queue_t)queue picker:(void (^)(id relation, id value))picker {
     ORObjectRelationObserver *observer = [[ORObjectRelationObserver alloc] initWithName:name queue:queue picker:picker];
     
@@ -216,15 +237,15 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
 }
 
 - (void)_appendObserver:(ORObjectRelationObserver *)observer {
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         [[self mutableObservers] addObject:observer];
-    });
+    }];
 }
 
 - (void)_removeObserver:(ORObjectRelationObserver *)observer {
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         [[self mutableObservers] removeObject:observer];
-    });
+    }];
 }
 
 - (void)_appendSubRelation:(ORObjectRelation *)subRelation error:(NSError **)error; {
@@ -241,16 +262,16 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
 }
 
 - (void)_appendSubRelation:(ORObjectRelation *)subRelation{
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         [[self mutableSubRelations] addObject:subRelation];
-    });
+    }];
 }
 
 - (void)_removeSubRelation:(ORObjectRelation *)subRelation{
     subRelation.parentObjectRelation = nil;
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         [[self mutableSubRelations] removeObject:subRelation];
-    });
+    }];
     [self _updateValue];
     [self _performObserver];
 }
@@ -259,17 +280,17 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
     for (ORObjectRelation *subRelation in subRelations) {
         subRelation.parentObjectRelation = nil;
     }
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         [[self mutableSubRelations] removeObjectsInArray:subRelations];
-    });
+    }];
     [self _updateValue];
     [self _performObserver];
 }
 
 - (void)_removeAllSubRelations{
-    dispatch_sync([self queue], ^{
+    [self _sync:^{
         [[self mutableSubRelations] removeAllObjects];
-    });
+    }];
     
     self.innerValue = nil;
 }
@@ -291,7 +312,7 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
 }
 
 - (void)_performObserverWithValue:(id)value{
-    dispatch_async([self queue], ^{
+    [self _sync:^{
         for (ORObjectRelationObserver *observer in [self mutableObservers]) {
             dispatch_async([observer queue], ^{
                 if ([observer picker]) {
@@ -299,7 +320,7 @@ NSString * const ORObjectRelationNamePrefix = @"com.objectRelation.name#";
                 }
             });
         }
-    });
+    }];
 }
 
 #pragma mark - public
